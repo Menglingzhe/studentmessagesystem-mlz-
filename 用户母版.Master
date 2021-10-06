@@ -1,0 +1,105 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="用户母版.master.cs" Inherits="WebApplication9.用户母版" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="css/admin.css"/>
+    <script src="js/jquery.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div class="header bg-main">
+    <div class="glOtitle">
+        <h1>
+           
+            学生管理系统-用户端
+        </h1>
+    </div>
+   
+</div>
+<div class="leftnav">
+    <div class="leftnav-title">
+        <strong><span class="icon-list"></span>菜单列表</strong>
+    </div>
+    <div class="leftnav-list" id="leftNav">
+        <h2><span class="icon-user"></span> 登陆注册</h2>
+    <ul>
+        <li><a href="学生登录.aspx" target="right"><span class="icon-caret-right"></span> 重新登录</a></li>
+        <li><a href="用户注册.aspx" target="right"><span class="icon-caret-right"></span> 注册新账号</a></li>
+    </ul>
+    <h2><span class="icon-user"></span> 专业信息</h2>
+        <ul>
+            <li><a href="查看专业信息.aspx" target="right"><span class="icon-caret-right"></span> 查询专业信息</a></li>
+             <li><a href="管理个人信息.aspx" target="right"><span class="icon-caret-right"></span> 管理个人信息</a></li>
+        </ul>
+    <h2><span class="icon-user"></span> 选课情况</h2>
+        <ul>
+            <li><a href="个人选课情况查询.aspx" target="right"><span class="icon-caret-right"></span> 查看选课情况</a></li>
+        </ul>
+    <h2><span class="icon-user"></span> 成绩查询</h2>
+        <ul>
+            <li><a href="课程成绩查询.aspx" target="right"><span class="icon-caret-right"></span> 课程成绩查询</a></li>
+             <li><a href="所有成绩查询.aspx" target="right"><span class="icon-caret-right"></span> 所有成绩查询</a></li>
+ 
+        </ul>
+    </div>
+</div>
+
+<ul class="bread">
+    <li>
+    <a href="WebForm3.aspx" target="right" class="icon-home syHome"> 首页</a>
+    </li>
+    <li style="display: none">
+        <a href="javascript:;" target="right" id="a_leader_txt2"> </a>
+    </li>
+    <li style="display: none">
+        <a href=".aspx" target="right" id="a_leader_txt">网站首页</a>
+    </li>
+</ul>
+<div class="admin">
+    <!--iframe不能被删除，他容纳所有的执行页面-->
+    <iframe id="frame" scrolling="auto" rameborder="0" src="" name="right" width="100%" height="100%"></iframe>
+</div>
+<script>
+    $(function () {
+        //实现菜单的动态滑动效果
+        $("#leftNav>h2").click(function () {
+            $("#leftNav>ul.active").stop().slideUp(200).removeClass('active');
+            $("#leftNav>h2.on").removeClass('on');
+            $(this).next().slideDown(200).addClass('active');
+            $(this).addClass("on");
+        });
+        $("#leftNav>ul>li>a").click(function () {
+            $("#a_leader_txt").text($(this).text());
+            $("#a_leader_txt").attr('href', $(this).attr('href')).parent().show();
+            $('#a_leader_txt2').text($(this).parents('ul').prev().text()).parent().show();
+            $(".leftnav ul li a").removeClass("on");
+            $(this).addClass("on");
+        });
+
+        $('#a_leader_txt').click(function (e) {
+            if (this.href == 'javascript:;') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        $('.syHome').click(function (e) {
+            $('#a_leader_txt2').parent().hide();
+            $('#a_leader_txt').parent().hide();
+        })
+        $("#leftNav>h2:eq(0)").click();
+    });
+</script>
+
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
